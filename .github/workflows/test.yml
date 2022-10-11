@@ -34,9 +34,5 @@ jobs:
         run: npm install
 
       - name: Build Tests
-        run: npm run tests:build
-        continue-on-error: false
-
-      - name: Execute Tests
-        run: npm run tests:exec
+        run: npm run test --workspaces
         continue-on-error: false

@@ -43,7 +43,7 @@ jobs:
         run: npm ci
 
       - name: Build Release
-        run: npm run release:build
+        run: npm run release:build --workspaces
         continue-on-error: false
 
   push_to_registry:
