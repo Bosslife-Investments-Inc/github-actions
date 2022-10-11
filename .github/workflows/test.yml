@@ -1,11 +1,11 @@
-name: Tests Build
+name: Test Build
 
 on:
   workflow_call:
 
 jobs:
   build:
-    name: Tests Build
+    name: Test Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Actions
