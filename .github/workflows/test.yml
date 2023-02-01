@@ -33,10 +33,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Tests
-        run: npm run tests:build
-        continue-on-error: false
-
-      - name: Execute Tests
-        run: npm run tests:exec
+      - name: Run Tests
+        run: npm run test
         continue-on-error: false
