@@ -1,21 +1,17 @@
-name: Docker Publish
+name: Docker Release
 
 on:
   workflow_call:
     secrets:
-      docker_username:
-        required: true
-      docker_token:
-        required: true
-      docker_tag:
-        required: true
       npm_token:
         required: true
 
 jobs:
   build:
     name: build docker
+    timeout-minutes: 10
     runs-on: ubuntu-latest
+
     steps:
       - name: checkout actions
         uses: actions/checkout@master
@@ -23,7 +19,7 @@ jobs:
       - name: start containers
         run: docker compose -f "docker-compose.yml" up --build --abort-on-container-exit
         env:
-          docker_target: dev
+          docker_target: release
           npm_token: ${{ secrets.npm_token }}
         continue-on-error: false
 

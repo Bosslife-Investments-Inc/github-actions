@@ -1,21 +1,22 @@
-name: Docker Publish
+name: Docker Test
 
 on:
   workflow_call:
+    inputs:
+      node_env:
+        type: string
+        required: false
+        default: development
     secrets:
-      docker_username:
-        required: true
-      docker_token:
-        required: true
-      docker_tag:
-        required: true
       npm_token:
         required: true
 
 jobs:
   build:
-    name: build docker
+    name: test docker
+    timeout-minutes: 10
     runs-on: ubuntu-latest
+
     steps:
       - name: checkout actions
         uses: actions/checkout@master
@@ -23,8 +24,9 @@ jobs:
       - name: start containers
         run: docker compose -f "docker-compose.yml" up --build --abort-on-container-exit
         env:
-          docker_target: dev
+          docker_target: test
           npm_token: ${{ secrets.npm_token }}
+          node_env: ${{ inputs.node_env }}
         continue-on-error: false
 
       - name: stop containers
