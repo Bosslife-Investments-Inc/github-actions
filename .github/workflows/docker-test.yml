@@ -7,9 +7,6 @@ on:
         type: string
         required: false
         default: development
-    secrets:
-      npm_token:
-        required: true
 
 jobs:
   build:
@@ -25,7 +22,6 @@ jobs:
         run: docker compose -f "docker-compose.yml" up --build --abort-on-container-exit
         env:
           docker_target: test
-          npm_token: ${{ secrets.npm_token }}
           node_env: ${{ inputs.node_env }}
         continue-on-error: false
 

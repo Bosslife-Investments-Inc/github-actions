@@ -2,9 +2,6 @@ name: Docker Development
 
 on:
   workflow_call:
-    secrets:
-      npm_token:
-        required: true
 
 jobs:
   build:
@@ -20,7 +17,6 @@ jobs:
         run: docker compose -f "docker-compose.yml" up --build --abort-on-container-exit
         env:
           docker_target: dev
-          npm_token: ${{ secrets.npm_token }}
         continue-on-error: false
 
       - name: stop containers
