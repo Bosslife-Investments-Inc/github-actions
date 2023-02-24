@@ -7,7 +7,7 @@ on:
         type: string
         required: false
         default: development
-      node_mode:
+      mode:
         type: string
         required: false
         default: test
@@ -31,7 +31,7 @@ jobs:
           docker_target: test
           npm_token: ${{ secrets.npm_token }}
           node_env: ${{ inputs.node_env }}
-          node_mode: ${{ inputs.node_mode }}
+          mode: ${{ inputs.mode }}
         continue-on-error: false
 
       - name: stop containers

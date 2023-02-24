@@ -7,7 +7,7 @@ on:
         type: string
         required: false
         default: production
-      node_mode:
+      mode:
         type: string
         required: false
         default: production
@@ -31,7 +31,7 @@ jobs:
           docker_target: release
           npm_token: ${{ secrets.npm_token }}
           node_env: ${{ inputs.node_env }}
-          node_mode: ${{ inputs.node_mode }}
+          mode: ${{ inputs.mode }}
         continue-on-error: false
 
       - name: stop containers
