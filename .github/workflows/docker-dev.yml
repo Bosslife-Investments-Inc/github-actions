@@ -1,11 +1,23 @@
-name: Docker Development
+name: Docker Release
 
 on:
   workflow_call:
+    inputs:
+      node_env:
+        type: string
+        required: false
+        default: development
+      mode:
+        type: string
+        required: false
+        default: development
+    secrets:
+      npm_token:
+        required: false
 
 jobs:
   build:
-    name: build image
+    name: dev docker
     timeout-minutes: 10
     runs-on: ubuntu-latest
 
@@ -17,6 +29,9 @@ jobs:
         run: docker compose -f "docker-compose.yml" up --build --abort-on-container-exit
         env:
           docker_target: dev
+          npm_token: ${{ secrets.npm_token }}
+          node_env: ${{ inputs.node_env }}
+          mode: ${{ inputs.mode }}
         continue-on-error: false
 
       - name: stop containers
