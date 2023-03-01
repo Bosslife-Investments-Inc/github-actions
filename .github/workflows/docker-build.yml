@@ -1,23 +1,24 @@
-name: Docker Release
+name: Docker Build
 
 on:
   workflow_call:
     inputs:
+      build_target:
+        type: string
+        required: false
+        default: release
       node_env:
         type: string
         required: false
-        default: development
-      mode:
+        default: production
+      vite_mode:
         type: string
         required: false
-        default: development
-    secrets:
-      npm_token:
-        required: false
+        default: production
 
 jobs:
   build:
-    name: dev docker
+    name: ${{ inputs.build_target }} ${{ inputs.node_env }} ${{ inputs.vite_mode }}
     timeout-minutes: 10
     runs-on: ubuntu-latest
 
@@ -28,10 +29,9 @@ jobs:
       - name: start containers
         run: docker compose -f "docker-compose.yml" up --build --abort-on-container-exit
         env:
-          docker_target: dev
-          npm_token: ${{ secrets.npm_token }}
+          build_target: ${{ inputs.build_target }}
           node_env: ${{ inputs.node_env }}
-          mode: ${{ inputs.mode }}
+          vite_mode: ${{ inputs.vite_mode }}
         continue-on-error: false
 
       - name: stop containers
